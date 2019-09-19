@@ -1,4 +1,4 @@
-use super::ffi_structs::{bls_key_pair_into_repr_c, FfiBlsKeyPair};
+use super::ffi_structs::{bls_key_pair_into_repr_c, BlsKeyPair};
 use super::helpers::{from_c_str_to_string_option, to_c_str};
 use ffi_utils::{catch_unwind_cb, from_c_str, FfiResult, OpaqueCtx, FFI_RESULT_OK};
 use safe_api::{ResultReturn, Safe};
@@ -18,7 +18,7 @@ pub unsafe extern "C" fn generate_safe_key_pair(
         user_data: *mut c_void,
         result: *const FfiResult,
         xorurl: *const c_char,
-        safe_key: *const FfiBlsKeyPair,
+        safe_key: *const BlsKeyPair,
         pre_load: *const c_char,
     ),
 ) {

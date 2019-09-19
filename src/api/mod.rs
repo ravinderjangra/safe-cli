@@ -11,8 +11,8 @@ mod constants;
 mod errors;
 #[cfg(feature = "scl-mock")]
 mod fake_scl;
-mod fetch;
-mod files;
+pub mod fetch;
+pub mod files;
 mod helpers;
 mod keys;
 mod nrs;

@@ -1,19 +1,55 @@
-use safe_api::{BlsKeyPair, NrsMap, ResultReturn, XorUrlEncoder};
+use safe_api::{
+    BlsKeyPair as NativeBlsKeyPair, NrsMap as NativeNrsMap, ResultReturn, XorUrlEncoder,
+};
 use safe_core::ffi::arrays::XorNameArray;
 use std::ffi::CString;
 use std::os::raw::c_char;
 
 #[repr(C)]
-pub struct FfiBlsKeyPair {
+pub struct BlsKeyPair {
     pub pk: *const c_char,
     pub sk: *const c_char,
 }
 
-pub fn bls_key_pair_into_repr_c(key_pair: &BlsKeyPair) -> ResultReturn<FfiBlsKeyPair> {
-    Ok(FfiBlsKeyPair {
+pub fn bls_key_pair_into_repr_c(key_pair: &NativeBlsKeyPair) -> ResultReturn<BlsKeyPair> {
+    Ok(BlsKeyPair {
         pk: CString::new(key_pair.pk.clone())?.into_raw(),
         sk: CString::new(key_pair.sk.clone())?.into_raw(),
     })
+}
+
+#[repr(C)]
+pub struct SafeKey {
+    pub xorname: XorNameArray,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct Wallet {
+    pub xorname: XorNameArray,
+    pub type_tag: u64,
+    pub balances: *const c_char,
+    pub data_type: u64,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct FilesContainer {
+    pub xorname: XorNameArray,
+    pub type_tag: u64,
+    pub version: u64,
+    pub files_map: *const c_char,
+    pub data_type: u64,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct PublishedImmutableData {
+    pub xorname: XorNameArray,
+    pub data: *const u8,
+    pub data_len: usize,
+    pub resolved_from: *const c_char,
+    pub media_type: *const c_char,
 }
 
 #[repr(C)]
@@ -42,10 +78,10 @@ pub fn xorurl_encoder_into_repr_c(xorurl_encoder: XorUrlEncoder) -> ResultReturn
 }
 
 #[repr(C)]
-pub struct FfiNrsMap {
+pub struct NrsMap {
     // TODO
 }
 
-pub fn nrs_map_into_repr_c(_nrs_map: &NrsMap) -> ResultReturn<FfiNrsMap> {
-    Ok(FfiNrsMap {})
+pub fn nrs_map_into_repr_c(_nrs_map: &NativeNrsMap) -> ResultReturn<NrsMap> {
+    Ok(NrsMap {})
 }
