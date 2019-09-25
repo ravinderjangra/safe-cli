@@ -27,6 +27,40 @@ pub fn bls_key_pair_into_repr_c(key_pair: &NativeBlsKeyPair) -> ResultReturn<Bls
 }
 
 #[repr(C)]
+pub struct SafeKey {
+    pub xorname: XorNameArray,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct Wallet {
+    pub xorname: XorNameArray,
+    pub type_tag: u64,
+    pub balances: *const c_char,
+    pub data_type: u64,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct FilesContainer {
+    pub xorname: XorNameArray,
+    pub type_tag: u64,
+    pub version: u64,
+    pub files_map: *const c_char,
+    pub data_type: u64,
+    pub resolved_from: *const c_char,
+}
+
+#[repr(C)]
+pub struct PublishedImmutableData {
+    pub xorname: XorNameArray,
+    pub data: *const u8,
+    pub data_len: usize,
+    pub resolved_from: *const c_char,
+    pub media_type: *const c_char,
+}
+
+#[repr(C)]
 pub struct XorUrlEncoder {
     pub encoding_version: u64,
     pub xorname: XorNameArray,

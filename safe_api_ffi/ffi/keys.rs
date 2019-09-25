@@ -156,22 +156,21 @@ pub unsafe extern "C" fn keys_transfer(
 
 #[test]
 fn ffi_test() {
-    use unwrap::unwrap;
     use std::ffi::CString;
+    use unwrap::unwrap;
     let mut safe = Safe::new("base32z");
     unwrap!(safe.connect("", Some("fake-credentials")));
     let (_, key_pair1) = unwrap!(safe.keys_create_preload_test_coins("10.0"));
 
     unsafe {
-        let balance: String = unwrap!(
-        ffi_utils::test_utils::call_1(
+        let balance: String = unwrap!(ffi_utils::test_utils::call_1(
             |ud, cb| keys_balance_from_sk(
                 &safe,
                 unwrap!(CString::new(unwrap!(key_pair).sk)).as_ptr(),
-                ud, cb
+                ud,
+                cb
             )
-        )
-    );
-    println!("{}", balance);
+        ));
+        println!("{}", balance);
     }
 }
