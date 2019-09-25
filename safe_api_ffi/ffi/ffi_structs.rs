@@ -103,10 +103,29 @@ pub fn wallet_spendable_balance_into_repr_c(
 }
 
 #[repr(C)]
+pub struct SependableWalletBalance {
+    pub wallet_name: *const c_char,
+    pub is_default: bool,
+    pub spendable_wallet_balance: WalletSpendableBalance,
+}
+
+#[repr(C)]
 pub struct WalletSpendableBalances {
-    pub wallet_spendable_balance: *const WalletSpendableBalance,
-    pub balance_len: usize,
-    pub balance_cap: usize,
+    pub wallet_balances: *const SependableWalletBalance,
+    pub wallet_balances_len: usize,
+    pub wallet_balances_cap: usize,
+}
+
+impl Drop for WalletSpendableBalances {
+    fn drop(&mut self) {
+        unsafe {
+            let _ = Vec::from_raw_parts(
+                self.wallet_balances as *mut SependableWalletBalance,
+                self.wallet_balances_len,
+                self.wallet_balances_cap,
+            );
+        }
+    }
 }
 
 pub fn wallet_spendable_balances_into_repr_c(
@@ -114,18 +133,19 @@ pub fn wallet_spendable_balances_into_repr_c(
 ) -> ResultReturn<WalletSpendableBalances> {
     let mut vec = Vec::with_capacity(wallet_balances.len());
 
-    for (_name, (_bool_value, spendable_balance)) in wallet_balances {
-        vec.push(WalletSpendableBalance {
-            xorurl: CString::new(spendable_balance.xorurl)?.into_raw(),
-            sk: CString::new(spendable_balance.sk)?.into_raw(),
+    for (name, (is_default, spendable_balance)) in wallet_balances {
+        vec.push(SependableWalletBalance {
+            wallet_name: CString::new(name)?.into_raw(),
+            is_default: is_default,
+            spendable_wallet_balance: wallet_spendable_balance_into_repr_c(&spendable_balance)?,
         })
     }
 
     let (balance, balance_len, balance_cap) = vec_into_raw_parts(vec);
     Ok(WalletSpendableBalances {
-        wallet_spendable_balance: balance,
-        balance_len,
-        balance_cap,
+        wallet_balances: balance,
+        wallet_balances_len: balance_len,
+        wallet_balances_cap: balance_cap,
     })
 }
 
