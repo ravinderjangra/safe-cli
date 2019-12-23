@@ -25,6 +25,7 @@ use helpers::from_c_str_to_str_option;
 use safe_api::Safe;
 use std::os::raw::{c_char, c_void};
 
+// Connect API FFI interface
 #[no_mangle]
 pub unsafe extern "C" fn connect(
     app_id: *const c_char,
