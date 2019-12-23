@@ -1,0 +1,10 @@
+ffi:
+  - safe-ffi/*
+
+api:
+  - safe-api/*
+
+cli:
+  - safe-cli/*
+  - safe-authd/*
+  - jsonrpc-quic/*
