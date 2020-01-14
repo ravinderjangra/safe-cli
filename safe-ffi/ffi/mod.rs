@@ -12,8 +12,8 @@
 mod errors;
 pub mod fetch;
 pub mod ffi_structs;
-pub mod helpers;
 pub mod files;
+pub mod helpers;
 pub mod keys;
 pub mod nrs;
 pub mod wallet;
