@@ -1,6 +1,8 @@
 name: GHAs-fmt
 
 on:
+  pull_request:
+    branches: GHAs-fmt
   push:
     branches: GHAs-fmt
 
