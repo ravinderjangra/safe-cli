@@ -1,0 +1,30 @@
+name: GHAs-fmt
+
+on:
+  push:
+    branches: GHAs-fmt
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install minimal stable with clippy and rustfmt
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        components: rustfmt, clippy
+    - name: Run rustfmt
+      uses: actions-rs/cargo@v1.0.1
+      with:
+        command: fmt
+    - name: Commit fmt files
+      run: |
+        git config --local user.email "ravinderjangra@live.com"
+        git config --local user.name "Ravinder Jangra"
+        git commit -m "chore(rustfmt): add rustfmt changed" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
