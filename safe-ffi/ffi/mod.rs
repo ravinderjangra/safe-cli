@@ -15,9 +15,9 @@ pub mod ffi_structs;
 pub mod files;
 pub mod helpers;
 pub mod keys;
-pub mod nrs;
 pub mod wallet;
 pub mod xorurl;
+pub mod nrs;
 
 use errors::Result;
 use ffi_utils::{catch_unwind_cb, FfiResult, OpaqueCtx, ReprC, FFI_RESULT_OK};
