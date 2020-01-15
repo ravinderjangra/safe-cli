@@ -44,5 +44,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        resposity: 'S-Coyle/safe-api'
-        branch: ${{ github.head_ref }}
+        resposity: ${{ github.event.pull_request.head.repo.full_name }}
+        branch: ${{ github.event.pull_request.head.ref }}
