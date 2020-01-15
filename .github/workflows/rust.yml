@@ -7,6 +7,15 @@ on:
     branches: GHAs-fmt
 
 jobs:
+  check-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Check GitHub variables
+        run: |
+          echo ${{ github.repository }}
+          echo ${{ github.branch }}
+  
   build:
     runs-on: ubuntu-latest
     steps:
