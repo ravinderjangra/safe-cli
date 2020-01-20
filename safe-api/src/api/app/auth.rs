@@ -83,8 +83,17 @@ impl Safe {
     }
 
     // Connect to the SAFE Network using the provided app id and auth credentials
-    pub fn connect(&mut self, app_id: &str, auth_credentials: Option<&str>) -> Result<()> {
-        self.safe_app.connect(app_id, auth_credentials)
+    pub fn connect<CB>(
+        &mut self,
+        app_id: &str,
+        auth_credentials: Option<&str>,
+        disconnect_notifier: Option<CB>,
+    ) -> Result<()>
+    where
+        CB: FnMut() + 'static + Send,
+    {
+        self.safe_app
+            .connect(app_id, auth_credentials, disconnect_notifier)
     }
 }
 

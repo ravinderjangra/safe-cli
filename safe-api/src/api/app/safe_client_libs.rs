@@ -91,11 +91,20 @@ impl SafeApp for SafeAppScl {
 
     // Connect to the SAFE Network using the provided app id and auth credentials
     #[cfg(not(feature = "fake-auth"))]
-    fn connect(&mut self, app_id: &str, auth_credentials: Option<&str>) -> Result<()> {
+    fn connect<CB>(
+        &mut self,
+        app_id: &str,
+        auth_credentials: Option<&str>,
+        disconnect_cb: Option<CB>,
+    ) -> Result<()>
+    where
+        CB: FnMut() + 'static + Send,
+    {
         debug!("Connecting to SAFE Network...");
 
-        let disconnect_cb = || {
-            warn!("Connection with the SAFE Network was lost");
+        let disconnect_cb: Box<dyn FnMut() + Send + 'static> = match disconnect_cb {
+            Some(disconnect_cb) => Box::new(disconnect_cb),
+            None => Box::new(|| warn!("Connection with the SAFE Network was lost")),
         };
 
         let app = match auth_credentials {

@@ -67,6 +67,7 @@ pub unsafe extern "C" fn connect_app(
     app_id: *const c_char,
     auth_credentials: *const c_char,
     user_data: *mut c_void,
+    o_disconnect_notifier_cb: extern "C" fn(user_data: *mut c_void),
     o_cb: extern "C" fn(user_data: *mut c_void, result: *const FfiResult, app: *mut Safe),
 ) {
     catch_unwind_cb(user_data, o_cb, || -> Result<()> {
@@ -74,7 +75,11 @@ pub unsafe extern "C" fn connect_app(
         let app_id = String::clone_from_repr_c(app_id)?;
         let auth_cred = from_c_str_to_str_option(auth_credentials);
         let mut safe = Safe::default();
-        safe.connect(&app_id, auth_cred)?;
+        safe.connect(
+            &app_id,
+            auth_cred,
+            Some(move || o_disconnect_notifier_cb(user_data.0)),
+        )?;
         o_cb(user_data.0, FFI_RESULT_OK, Box::into_raw(Box::new(safe)));
         Ok(())
     })
