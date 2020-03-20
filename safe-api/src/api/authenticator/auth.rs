@@ -50,16 +50,14 @@ impl SafeAuthenticator {
         }
     }
 
-    /// # Log in
-    ///
     /// Using an account already created, you can log in to
     /// the SAFE Network using the `Authenticator` daemon.
     ///
-    /// ## Example
+    /// # Example
     /// ```ignore
     /// use safe_api::SafeAuthenticator;
     /// let mut safe_auth = SafeAuthenticator::new(None);
-    /// # fn random_str() -> String { (0..4).map(|_| rand::random::<char>()).collect() }
+    /// fn random_str() -> String { (0..4).map(|_| rand::random::<char>()).collect() }
     /// /// Using an already existing account's passphrase and password:
     /// let my_secret = "mysecretstring";
     /// let my_password = "mypassword";
@@ -74,7 +72,7 @@ impl SafeAuthenticator {
     /// }
     ///```
     ///
-    /// ## Error Example
+    /// # Error Example
     /// If the account does not exist, the function will return an appropriate error:
     ///```
     /// use safe_api::{SafeAuthenticator, Error};
@@ -123,7 +121,6 @@ impl SafeAuthenticator {
         is_logged_in
     }
 
-    /// # Create Account
     /// Creates a new account on the SAFE Network.
     /// Returns an error if an account exists or if there was some
     /// problem during the account creation process.
@@ -132,7 +129,7 @@ impl SafeAuthenticator {
     /// Note: This does _not_ perform any strength checks on the
     /// strings used to create the account.
     ///
-    /// ## Example
+    /// # Example
     /// ```ignore
     /// use safe_api::SafeAuthenticator;
     /// let mut safe_auth = SafeAuthenticator::new(None);
@@ -149,7 +146,7 @@ impl SafeAuthenticator {
     /// }
     ///```
     ///
-    /// ## Error Example
+    /// # Error Example
     /// If an account with same passphrase already exists,
     /// the function will return an error:
     /// ```ignore
@@ -236,12 +233,10 @@ impl SafeAuthenticator {
         }
     }
 
-    /// # Authorise an application
-    ///
     /// Using an account already created, you can log in to
     /// the SAFE Network and authorise an application.
     ///
-    /// ## Example
+    /// # Example
     /// ```ignore
     /// use safe_api::SafeAuthenticator;
     /// let mut safe_auth = SafeAuthenticator::new(None);
@@ -261,7 +256,7 @@ impl SafeAuthenticator {
     ///    Err(_) => assert!(false)
     /// }
     ///```
-    /// ## Error Example
+    /// # Error Example
     /// ```ignore
     /// use safe_api::{SafeAuthenticator, Error};
     /// let mut safe_auth = SafeAuthenticator::new(None);
@@ -352,13 +347,11 @@ impl SafeAuthenticator {
         }
     }
 
-    /// # Get the list of applications authorised by this account
-    ///
     /// Using an account already created, you can log in to
     /// the SAFE Network and get the list of all the applications that have
     /// been authorised so far.
     ///
-    /// ## Example
+    /// # Example
     /// ```ignore
     /// use safe_api::SafeAuthenticator;
     /// let mut safe_auth = SafeAuthenticator::new(None);
@@ -453,13 +446,11 @@ impl SafeAuthenticator {
         Ok(authed_apps)
     }
 
-    /// # Revoke all permissions from an application
-    ///
     /// Using an account already created, you can log in to
     /// the SAFE Network and revoke all permissions previously granted to an
     /// application by providing its ID.
     ///
-    /// ## Example
+    /// # Example
     /// ```ignore
     /// use safe_api::SafeAuthenticator;
     /// let mut safe_auth = SafeAuthenticator::new(None);
@@ -483,7 +474,7 @@ impl SafeAuthenticator {
     /// }
     /// ```
     ///
-    /// ## Error Example
+    /// # Error Example
     /// ```ignore
     /// use safe_api::{SafeAuthenticator, Error};
     /// let mut safe_auth = SafeAuthenticator::new(None);

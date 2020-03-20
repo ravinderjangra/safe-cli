@@ -28,16 +28,16 @@ use relative_path::RelativePath;
 use std::{collections::BTreeMap, fs, path::Path};
 use walkdir::{DirEntry, WalkDir};
 
-// Each FileItem contains file metadata and the link to the file's ImmutableData XOR-URL
+/// Each FileItem contains file metadata and the link to the file's ImmutableData XOR-URL
 pub type FileItem = BTreeMap<String, String>;
 
-// To use for mapping files names (with path in a flattened hierarchy) to FileItems
+/// To use for mapping files names (with path in a flattened hierarchy) to FileItems
 pub type FilesMap = BTreeMap<String, FileItem>;
 
-// List of files uploaded with details if they were added, updated or deleted from FilesContainer
+/// List of files uploaded with details if they were added, updated or deleted from FilesContainer
 pub type ProcessedFiles = BTreeMap<String, (String, String)>;
 
-// Type tag to use for the FilesContainer stored on AppendOnlyData
+/// Type tag to use for the FilesContainer stored on AppendOnlyData
 const FILES_CONTAINER_TYPE_TAG: u64 = 1_100;
 
 const ERROR_MSG_NO_FILES_CONTAINER_FOUND: &str = "No FilesContainer found at this address";
@@ -45,14 +45,14 @@ const ERROR_MSG_NO_FILES_CONTAINER_FOUND: &str = "No FilesContainer found at thi
 const MAX_RECURSIVE_DEPTH: usize = 10_000;
 
 impl Safe {
-    /// # Create a FilesContainer.
+    /// Create a FilesContainer.
     ///
-    /// ## Example
+    /// Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
     /// let (xorurl, _processed_files, _files_map) = async_std::task::block_on(safe.files_container_create(Some("../testdata"), None, true, false)).unwrap();
     /// assert!(xorurl.contains("safe://"))
     /// ```
@@ -122,15 +122,15 @@ impl Safe {
         Ok((xorurl, processed_files, files_map))
     }
 
-    /// # Fetch an existing FilesContainer.
+    /// Fetch an existing FilesContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let (version, files_map) = safe.files_container_get(&xorurl).await.unwrap();
     ///     println!("FilesContainer fetched is at version: {}", version);
@@ -202,15 +202,15 @@ impl Safe {
         }
     }
 
-    /// # Sync up local folder with the content on a FilesContainer.
+    /// Sync up local folder with the content on a FilesContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let (version, new_processed_files, new_files_map) = safe.files_container_sync("../testdata", &xorurl, true, false, false, false).await.unwrap();
     ///     println!("FilesContainer synced up is at version: {}", version);
@@ -292,15 +292,15 @@ impl Safe {
         Ok((version, processed_files, new_files_map))
     }
 
-    /// # Add a file, either a local path or a published file, on an existing FilesContainer.
+    /// Add a file, either a local path or a published file, on an existing FilesContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let new_file_name = format!("{}/new_name_test.md", xorurl);
     ///     let (version, new_processed_files, new_files_map) = safe.files_container_add("../testdata/test.md", &new_file_name, false, false, false).await.unwrap();
@@ -359,15 +359,15 @@ impl Safe {
         Ok((version, processed_files, new_files_map))
     }
 
-    /// # Add a file, from raw bytes, on an existing FilesContainer.
+    /// Add a file, from raw bytes, on an existing FilesContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let new_file_name = format!("{}/new_name_test.md", xorurl);
     ///     let (version, new_processed_files, new_files_map) = safe.files_container_add_from_raw(b"0123456789", &new_file_name, false, false, false).await.unwrap();
@@ -410,15 +410,15 @@ impl Safe {
         Ok((version, processed_files, new_files_map))
     }
 
-    /// # Remove a file from an existing FilesContainer.
+    /// Remove a file from an existing FilesContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, processed_files, files_map) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///     let remote_file_path = format!("{}/test.md", xorurl);
     ///     let (version, new_processed_files, new_files_map) = safe.files_container_remove_path(&remote_file_path, false, false, false).await.unwrap();
@@ -544,15 +544,15 @@ impl Safe {
         Ok(version)
     }
 
-    /// # Put Published ImmutableData
+    /// Put Published ImmutableData.
     /// Put data blobs onto the network.
     ///
-    /// ## Example
+    /// # Example
     /// ```
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let data = b"Something super good";
     ///     let xorurl = safe.files_put_published_immutable(data, Some("text/plain"), false).await.unwrap();
     ///     let received_data = safe.files_get_published_immutable(&xorurl, None).await.unwrap();
@@ -597,15 +597,15 @@ impl Safe {
         )
     }
 
-    /// # Get Published ImmutableData
+    /// Get Published ImmutableData.
     /// Put data blobs onto the network.
     ///
-    /// ## Example
+    /// # Example
     /// ```
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let data = b"Something super good";
     ///     let xorurl = safe.files_put_published_immutable(data, None, false).await.unwrap();
     ///     let received_data = safe.files_get_published_immutable(&xorurl, None).await.unwrap();

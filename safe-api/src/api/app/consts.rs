@@ -9,7 +9,7 @@
 
 use super::xorurl::XorUrlBase;
 
-// Default base encoding used for XOR URLs
+/// Default base encoding used for XOR URLs
 pub const DEFAULT_XORURL_BASE: XorUrlBase = XorUrlBase::Base32z;
 
 pub const CONTENT_ADDED_SIGN: &str = "+";

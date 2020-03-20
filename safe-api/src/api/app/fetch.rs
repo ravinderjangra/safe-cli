@@ -74,17 +74,17 @@ enum ResolutionStep {
 }
 
 impl Safe {
-    /// # Retrieve data from a safe:// URL
+    /// Retrieve data from a safe:// URL
     ///
-    /// ## Examples
+    /// # Examples
     ///
-    /// ### Fetch FilesContainer relative path file
+    /// ## Fetch FilesContainer relative path file
     /// ```rust
-    /// # use safe_api::{Safe, fetch::SafeData};
-    /// # use std::collections::BTreeMap;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::{Safe, fetch::SafeData};
+    /// use std::collections::BTreeMap;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _, _) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///
     ///     let safe_data = safe.fetch( &format!( "{}/test.md", &xorurl.replace("?v=0", "") ), None ).await.unwrap();
@@ -102,27 +102,27 @@ impl Safe {
     ///     };
     ///
     ///     assert!(data_string.starts_with("hello tests!"));
-    /// # });
+    /// });
     /// ```
     pub async fn fetch(&self, url: &str, range: Range) -> Result<SafeData> {
         retrieve_from_url(self, url, true, range).await
     }
 
-    /// # Inspect a safe:// URL and retrieve metadata information but the actual target content
-    /// # As opposed to 'fetch' function, the actual target content won't be fetched, and only
-    /// # the URL will be inspected resolving it as necessary to find the target location.
-    /// # This is helpful if you are interested in knowing about the target content rather than
-    /// # trying to revieve the actual content.
+    /// Inspect a safe:// URL and retrieve metadata information but the actual target content
+    /// As opposed to 'fetch' function, the actual target content won't be fetched, and only
+    /// the URL will be inspected resolving it as necessary to find the target location.
+    /// This is helpful if you are interested in knowing about the target content rather than
+    /// trying to revieve the actual content.
     ///
-    /// ## Examples
+    /// # Examples
     ///
-    /// ### Inspect FilesContainer relative path file
+    /// ## Inspect FilesContainer relative path file
     /// ```rust
-    /// # use safe_api::{Safe, fetch::SafeData};
-    /// # use std::collections::BTreeMap;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::{Safe, fetch::SafeData};
+    /// use std::collections::BTreeMap;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (xorurl, _, _) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///
     ///     let safe_data = safe.inspect( &format!( "{}/test.md", &xorurl.replace("?v=0", "") ) ).await.unwrap();
@@ -137,7 +137,7 @@ impl Safe {
     ///         )
     ///     };
     ///
-    /// # });
+    /// });
     /// ```
     pub async fn inspect(&self, url: &str) -> Result<SafeData> {
         retrieve_from_url(self, url, false, None).await

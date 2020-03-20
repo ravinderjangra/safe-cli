@@ -39,7 +39,7 @@ pub mod auth_types {
         pub own_container: bool,
     }
 
-    // Type of the list of authorised applications in a SAFE account
+    /// List of authorised applications in a SAFE account
     pub type AuthedAppsList = Vec<AuthedApp>;
 }
 

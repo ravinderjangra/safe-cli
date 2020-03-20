@@ -64,11 +64,11 @@ pub struct AuthdStatus {
     pub authd_version: String,
 }
 
-// Type of the list of pending authorisation requests
+/// Type of the list of pending authorisation requests
 pub type PendingAuthReqs = Vec<AuthReq>;
 
-// Type of the function/callback invoked for notifying and querying if an authorisation request
-// shall be allowed. All the relevant information about the authorisation request is passed as args to the callback.
+/// Type of the function/callback invoked for notifying and querying if an authorisation request
+/// shall be allowed. All the relevant information about the authorisation request is passed as args to the callback.
 pub type AuthAllowPrompt = dyn Fn(AuthReq) -> Option<bool> + std::marker::Send + std::marker::Sync;
 
 // Path of authenticator endpoint for getting a status report of the safe-authd
@@ -170,22 +170,22 @@ impl SafeAuthdClient {
         }
     }
 
-    // Install the Authenticator daemon/service
+    /// Install the Authenticator daemon/service
     pub fn install(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(authd_path, &[SAFE_AUTHD_CMD_INSTALL])
     }
 
-    // Uninstall the Authenticator daemon/service
+    /// Uninstall the Authenticator daemon/service
     pub fn uninstall(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(authd_path, &[SAFE_AUTHD_CMD_UNINSTALL])
     }
 
-    // Update the Authenticator binary to a new released version
+    /// Update the Authenticator binary to a new released version
     pub fn update(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(authd_path, &[SAFE_AUTHD_CMD_UPDATE])
     }
 
-    // Start the Authenticator daemon
+    /// Start the Authenticator daemon
     pub fn start(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(
             authd_path,
@@ -193,12 +193,12 @@ impl SafeAuthdClient {
         )
     }
 
-    // Stop the Authenticator daemon
+    /// Stop the Authenticator daemon
     pub fn stop(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(authd_path, &[SAFE_AUTHD_CMD_STOP])
     }
 
-    // Restart the Authenticator daemon
+    /// Restart the Authenticator daemon
     pub fn restart(&self, authd_path: Option<&str>) -> Result<()> {
         authd_run_cmd(
             authd_path,
@@ -206,7 +206,7 @@ impl SafeAuthdClient {
         )
     }
 
-    // Send a request to remote authd endpoint to obtain a status report
+    /// Send a request to remote authd endpoint to obtain a status report
     pub async fn status(&mut self) -> Result<AuthdStatus> {
         debug!("Attempting to retrieve status report from remote authd...");
         info!("Sending status report request to SAFE Authenticator...");
@@ -224,7 +224,7 @@ impl SafeAuthdClient {
         Ok(status_report)
     }
 
-    // Send a login action request to remote authd endpoint
+    /// Send a login action request to remote authd endpoint
     pub async fn log_in(&mut self, passphrase: &str, password: &str) -> Result<()> {
         debug!("Attempting to log in on remote authd...");
         info!(
@@ -245,7 +245,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Sends a logout action request to the SAFE Authenticator
+    /// Sends a logout action request to the SAFE Authenticator
     pub async fn log_out(&mut self) -> Result<()> {
         debug!("Dropping logged in session and logging out in remote authd...");
         info!("Sending logout action to SAFE Authenticator...");
@@ -264,7 +264,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Sends an account creation request to the SAFE Authenticator
+    /// Sends an account creation request to the SAFE Authenticator
     pub async fn create_acc(&self, sk: &str, passphrase: &str, password: &str) -> Result<()> {
         debug!("Attempting to create a SAFE account on remote authd...");
         debug!("Sending account creation request to SAFE Authenticator...");
@@ -282,7 +282,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Get the list of applications authorised from remote authd
+    /// Get the list of applications authorised from remote authd
     pub async fn authed_apps(&self) -> Result<AuthedAppsList> {
         debug!("Attempting to fetch list of authorised apps from remote authd...");
         debug!("Sending request request to SAFE Authenticator...");
@@ -300,7 +300,7 @@ impl SafeAuthdClient {
         Ok(authed_apps_list)
     }
 
-    // Revoke all permissions from an application
+    /// Revoke all permissions from an application
     pub async fn revoke_app(&self, app_id: &str) -> Result<()> {
         debug!(
             "Requesting to revoke permissions from application: {}",
@@ -321,7 +321,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Get the list of pending authorisation requests from remote authd
+    /// Get the list of pending authorisation requests from remote authd
     pub async fn auth_reqs(&self) -> Result<PendingAuthReqs> {
         debug!("Attempting to fetch list of pending authorisation requests from remote authd...");
         debug!("Sending request request to SAFE Authenticator...");
@@ -339,7 +339,7 @@ impl SafeAuthdClient {
         Ok(auth_reqs_list)
     }
 
-    // Allow an authorisation request
+    /// Allow an authorisation request
     pub async fn allow(&self, req_id: SafeAuthReqId) -> Result<()> {
         debug!("Requesting to allow authorisation request: {}", req_id);
         debug!("Sending allow action request to SAFE Authenticator...");
@@ -357,7 +357,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Deny an authorisation request
+    /// Deny an authorisation request
     pub async fn deny(&self, req_id: SafeAuthReqId) -> Result<()> {
         debug!("Requesting to deny authorisation request: {}", req_id);
         debug!("Sending deny action request to SAFE Authenticator...");
@@ -375,8 +375,8 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Subscribe a callback to receive notifications to allow/deny authorisation requests
-    // We support having only one subscripton at a time, a previous subscription will be dropped
+    /// Subscribe a callback to receive notifications to allow/deny authorisation requests
+    /// We support having only one subscripton at a time, a previous subscription will be dropped
     pub async fn subscribe<
         CB: 'static + Fn(AuthReq) -> Option<bool> + std::marker::Send + std::marker::Sync,
     >(
@@ -467,7 +467,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Subscribe an endpoint URL where notifications to allow/deny authorisation requests shall be sent
+    /// Subscribe an endpoint URL where notifications to allow/deny authorisation requests shall be sent
     pub async fn subscribe_url(&self, endpoint_url: &str) -> Result<()> {
         debug!(
             "Subscribing '{}' as endpoint for authorisation requests notifications...",
@@ -489,7 +489,7 @@ impl SafeAuthdClient {
         Ok(())
     }
 
-    // Unsubscribe from notifications to allow/deny authorisation requests
+    /// Unsubscribe from notifications to allow/deny authorisation requests
     pub async fn unsubscribe(&mut self, endpoint_url: &str) -> Result<()> {
         debug!("Unsubscribing from authorisation requests notifications...",);
         let authd_response = send_unsubscribe(endpoint_url, &self.authd_endpoint).await?;

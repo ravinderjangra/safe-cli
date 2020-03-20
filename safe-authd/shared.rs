@@ -20,15 +20,15 @@ pub struct IncomingAuthReq {
     pub notified: bool,
 }
 
-// List of authorisation requests indexed by their request id
+/// List of authorisation requests indexed by their request id
 pub type AuthReqsList = BTreeMap<u32, IncomingAuthReq>;
 
-// A thread-safe queue to keep the list of authorisation requests
+/// A thread-safe queue to keep the list of authorisation requests
 pub type SharedAuthReqsHandle = Arc<Mutex<AuthReqsList>>;
 
-// A thread-safe handle to keep the SafeAuthenticator instance
+/// A thread-safe handle to keep the SafeAuthenticator instance
 pub type SharedSafeAuthenticatorHandle = Arc<Mutex<SafeAuthenticator>>;
 
-// A thread-safe handle to keep the list of notifications subscribers' endpoints,
-// we also keep the certificates' base path which is needed to create the communication channel
+/// A thread-safe handle to keep the list of notifications subscribers' endpoints,
+/// we also keep the certificates' base path which is needed to create the communication channel
 pub type SharedNotifEndpointsHandle = Arc<Mutex<BTreeMap<String, String>>>;

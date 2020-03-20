@@ -24,7 +24,7 @@ const XOR_URL_VERSION_1: u64 = 0x1; // TODO: consider using 16 bits
 const XOR_URL_STR_MAX_LENGTH: usize = 44;
 const XOR_NAME_BYTES_OFFSET: usize = 4; // offset where to find the XoR name bytes
 
-// The XOR-URL type
+/// The XOR-URL type
 pub type XorUrl = String;
 
 // Supported base encoding for XOR URLs

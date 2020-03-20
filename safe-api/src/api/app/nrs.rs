@@ -31,7 +31,7 @@ const ERROR_MSG_NO_NRS_MAP_FOUND: &str = "No NRS Map found at this address";
 // Raw data stored in the SAFE native data type for a NRS Map Container
 type NrsMapRawData = Vec<(Vec<u8>, Vec<u8>)>;
 
-// List of public names uploaded with details if they were added, updated or deleted from NrsMaps
+/// List of public names uploaded with details if they were added, updated or deleted from NrsMaps
 pub type ProcessedEntries = BTreeMap<String, (String, String)>;
 
 impl Safe {
@@ -62,9 +62,9 @@ impl Safe {
         })
     }
 
-    // Parses a safe:// URL and returns all the info in a XorUrlEncoder instance.
-    // It also returns a second XorUrlEncoder if the URL was resolved as NRS-URL,
-    // this second XorUrlEncoder instance contains the information of the parsed NRS-URL.
+    /// Parses a safe:// URL and returns all the info in a XorUrlEncoder instance.
+    /// It also returns a second XorUrlEncoder if the URL was resolved as NRS-URL,
+    /// this second XorUrlEncoder instance contains the information of the parsed NRS-URL.
     pub async fn parse_and_resolve_url(
         &self,
         url: &str,
@@ -119,17 +119,18 @@ impl Safe {
         Ok((version + 1, xorurl, processed_entries, nrs_map))
     }
 
-    /// # Create a NrsMapContainer.
+    /// Create a NrsMapContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use rand::distributions::Alphanumeric;
-    /// # use rand::{thread_rng, Rng};
-    /// # use safe_api::Safe;
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use rand::distributions::Alphanumeric;
+    /// use rand::{thread_rng, Rng};
+    /// use unwrap::unwrap;
+    /// use safe_api::Safe;
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let rand_string: String = thread_rng().sample_iter(&Alphanumeric).take(15).collect();
     ///     let file_xorurl = safe.files_put_published_immutable(&vec![], None, false).await.unwrap();
     ///     let (xorurl, _processed_entries, nrs_map_container) = safe.nrs_map_container_create(&rand_string, &file_xorurl, true, false, false).await.unwrap();
@@ -232,17 +233,17 @@ impl Safe {
         Ok((version + 1, xorurl, processed_entries, nrs_map))
     }
 
-    /// # Fetch an existing NrsMapContainer.
+    /// Fetch an existing NrsMapContainer.
     ///
-    /// ## Example
+    /// # Example
     ///
     /// ```rust
-    /// # use safe_api::Safe;
-    /// # use rand::distributions::Alphanumeric;
-    /// # use rand::{thread_rng, Rng};
-    /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// use safe_api::Safe;
+    /// use rand::distributions::Alphanumeric;
+    /// use rand::{thread_rng, Rng};
+    /// let mut safe = Safe::default();
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let rand_string: String = thread_rng().sample_iter(&Alphanumeric).take(15).collect();
     ///     let file_xorurl = safe.files_put_published_immutable(&vec![], Some("text/plain"), false).await.unwrap();
     ///     let (xorurl, _processed_entries, _nrs_map) = safe.nrs_map_container_create(&rand_string, &file_xorurl, true, false, false).await.unwrap();

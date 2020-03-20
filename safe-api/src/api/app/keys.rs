@@ -22,7 +22,7 @@ use safe_nd::{Coins, XorName};
 use serde::{Deserialize, Serialize};
 use threshold_crypto::{PublicKey, SecretKey};
 
-// We expose a BLS key pair as two hex encoded strings
+/// A BLS key pair as two hex encoded strings
 // TODO: consider supporting other encodings like base32 or just expose Vec<u8>
 #[derive(Clone, Serialize, Deserialize)]
 pub struct BlsKeyPair {
@@ -31,7 +31,7 @@ pub struct BlsKeyPair {
 }
 
 impl Safe {
-    // Generate a key pair without creating and/or storing a SafeKey on the network
+    /// Generate a key pair without creating and/or storing a SafeKey on the network
     pub fn keypair(&self) -> Result<BlsKeyPair> {
         let key_pair = KeyPair::random();
         let (pk, sk) = key_pair.to_hex_key_pair()?;
@@ -61,7 +61,7 @@ impl Safe {
         }
     }
 
-    // Create a SafeKey on the network and return its XOR-URL.
+    /// Create a SafeKey on the network and return its XOR-URL.
     pub async fn keys_create(
         &mut self,
         from: Option<&str>,
@@ -107,7 +107,7 @@ impl Safe {
         Ok((xorurl, key_pair))
     }
 
-    // Create a SafeKey on the network, allocates testcoins onto it, and return the SafeKey's XOR-URL
+    /// Create a SafeKey on the network, allocates testcoins onto it, and return the SafeKey's XOR-URL
     pub async fn keys_create_preload_test_coins(
         &mut self,
         preload_amount: &str,
@@ -134,7 +134,7 @@ impl Safe {
         Ok((xorurl, key_pair))
     }
 
-    // Check SafeKey's balance from the network from a given SecretKey string
+    /// Check SafeKey's balance from the network from a given SecretKey string
     pub async fn keys_balance_from_sk(&self, sk: &str) -> Result<String> {
         let secret_key = sk_from_hex(sk)?;
         let coins = self
@@ -147,15 +147,15 @@ impl Safe {
         Ok(coins.to_string())
     }
 
-    // Check SafeKey's balance from the network from a given XOR/NRS-URL and secret key string.
-    // The difference between this and 'keys_balance_from_sk' function is that this will additionally
-    // check that the XOR/NRS-URL corresponds to the public key derived from the provided secret key
+    /// Check SafeKey's balance from the network from a given XOR/NRS-URL and secret key string.
+    /// The difference between this and 'keys_balance_from_sk' function is that this will additionally
+    /// check that the XOR/NRS-URL corresponds to the public key derived from the provided secret key
     pub async fn keys_balance_from_url(&self, url: &str, sk: &str) -> Result<String> {
         self.validate_sk_for_url(sk, url).await?;
         self.keys_balance_from_sk(sk).await
     }
 
-    // Check that the XOR/NRS-URL corresponds to the public key derived from the provided secret key
+    /// Check that the XOR/NRS-URL corresponds to the public key derived from the provided secret key
     pub async fn validate_sk_for_url(&self, sk: &str, url: &str) -> Result<String> {
         let secret_key: SecretKey = sk_from_hex(sk)
             .map_err(|_| Error::InvalidInput("Invalid secret key provided".to_string()))?;
@@ -172,16 +172,16 @@ impl Safe {
         }
     }
 
-    /// # Transfer safecoins from one SafeKey to another, or to a Wallet
+    /// Transfer safecoins from one SafeKey to another, or to a Wallet
     ///
     /// Using a secret key you can send safecoins to a Wallet or to a SafeKey.
     ///
-    /// ## Example
+    /// # Example
     /// ```
-    /// # use safe_api::Safe;
+    /// use safe_api::Safe;
     /// let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
-    /// # async_std::task::block_on(async {
+    /// safe.connect("", Some("fake-credentials")).unwrap();
+    /// async_std::task::block_on(async {
     ///     let (key1_xorurl, key_pair1) = safe.keys_create_preload_test_coins("14").await.unwrap();
     ///     let (key2_xorurl, key_pair2) = safe.keys_create_preload_test_coins("1").await.unwrap();
     ///     let current_balance = safe.keys_balance_from_sk(&key_pair1.clone().unwrap().sk).await.unwrap();
@@ -192,7 +192,7 @@ impl Safe {
     ///     assert_eq!("4.000000000", from_balance);
     ///     let to_balance = safe.keys_balance_from_url( &key2_xorurl, &key_pair2.unwrap().sk ).await.unwrap();
     ///     assert_eq!("11.000000000", to_balance);
-    /// # });
+    /// });
     /// ```
     pub async fn keys_transfer(
         &mut self,

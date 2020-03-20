@@ -38,7 +38,7 @@ pub struct WalletSpendableBalance {
 pub type WalletSpendableBalances = BTreeMap<String, (bool, WalletSpendableBalance)>;
 
 impl Safe {
-    // Create an empty Wallet and return its XOR-URL
+    /// Create an empty Wallet and return its XOR-URL
     pub async fn wallet_create(&mut self) -> Result<XorUrl> {
         let xorname = self
             .safe_app
@@ -57,7 +57,7 @@ impl Safe {
         )
     }
 
-    // Add a SafeKey to a Wallet to make it spendable, and returns the friendly name set for it
+    /// Add a SafeKey to a Wallet to make it spendable, and returns the friendly name set for it
     pub async fn wallet_insert(
         &mut self,
         url: &str,
@@ -144,7 +144,7 @@ impl Safe {
         Ok(md_key.to_string())
     }
 
-    // Check the total balance of a Wallet found at a given XOR-URL
+    /// Check the total balance of a Wallet found at a given XOR-URL
     pub async fn wallet_balance(&mut self, url: &str) -> Result<String> {
         debug!("Finding total wallet balance for: {:?}", url);
         let mut total_balance = Coins::from_nano(0);
@@ -258,11 +258,10 @@ impl Safe {
         .await
     }
 
-    /// # Transfer safecoins from one Wallet to another
-    ///
+    /// Transfer safecoins from one Wallet to another.
     /// Using established Wallet and SpendableBalances you can send safecoins between Wallets.
     ///
-    /// ## Example
+    /// # Example
     /// ```
     /// # use safe_api::Safe;
     /// let mut safe = Safe::default();

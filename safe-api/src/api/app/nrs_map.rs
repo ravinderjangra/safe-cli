@@ -44,8 +44,8 @@ impl fmt::Display for SubNameRDF {
     }
 }
 
-// The default for a sub name can be unset (NotSet), reference to the same mapping as
-// another existing sub name (ExistingRdf), or just a different mapping (OtherRdf)
+/// The default for a sub name can be unset (NotSet), reference to the same mapping as
+/// another existing sub name (ExistingRdf), or just a different mapping (OtherRdf)
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub enum DefaultRdf {
     NotSet,
@@ -59,10 +59,10 @@ impl std::default::Default for DefaultRdf {
     }
 }
 
-// Each PublicName contains metadata and the link to the target's XOR-URL
+/// Each PublicName contains metadata and the link to the target's XOR-URL
 pub type SubNamesMap = BTreeMap<SubName, SubNameRDF>;
 
-// To use for mapping sub names to PublicNames
+/// To use for mapping sub names to PublicNames
 #[derive(Debug, PartialEq, Default, Serialize, Deserialize, Clone)]
 pub struct NrsMap {
     pub sub_names_map: SubNamesMap,

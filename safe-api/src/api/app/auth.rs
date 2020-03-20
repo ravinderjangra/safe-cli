@@ -24,8 +24,8 @@ use std::collections::HashMap;
 const SAFE_AUTHD_METHOD_AUTHORISE: &str = "authorise";
 
 impl Safe {
-    // Generate an authorisation request string and send it to a SAFE Authenticator.
-    // It returns the credentials necessary to connect to the network, encoded in a single string.
+    /// Generate an authorisation request string and send it to a SAFE Authenticator.
+    /// It returns the credentials necessary to connect to the network, encoded in a single string.
     pub async fn auth_app(
         app_id: &str,
         app_name: &str,
@@ -82,7 +82,7 @@ impl Safe {
         }
     }
 
-    // Connect to the SAFE Network using the provided app id and auth credentials
+    /// Connect to the SAFE Network using the provided app id and auth credentials
     pub fn connect(&mut self, app_id: &str, auth_credentials: Option<&str>) -> Result<()> {
         self.safe_app.connect(app_id, auth_credentials)
     }
