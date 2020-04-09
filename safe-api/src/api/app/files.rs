@@ -52,7 +52,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// let (xorurl, _processed_files, _files_map) = async_std::task::block_on(safe.files_container_create(Some("../testdata"), None, true, false)).unwrap();
     /// assert!(xorurl.contains("safe://"))
     /// ```
@@ -129,7 +129,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let (version, files_map) = safe.files_container_get(&xorurl).await.unwrap();
@@ -209,7 +209,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let (version, new_processed_files, new_files_map) = safe.files_container_sync("../testdata", &xorurl, true, false, false, false).await.unwrap();
@@ -299,7 +299,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let new_file_name = format!("{}/new_name_test.md", xorurl);
@@ -366,7 +366,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _processed_files, _files_map) = safe.files_container_create(Some("../testdata"), None, true, false).await.unwrap();
     ///     let new_file_name = format!("{}/new_name_test.md", xorurl);
@@ -417,7 +417,7 @@ impl Safe {
     /// ```rust
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, processed_files, files_map) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///     let remote_file_path = format!("{}/test.md", xorurl);
@@ -551,7 +551,7 @@ impl Safe {
     /// ```
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let data = b"Something super good";
     ///     let xorurl = safe.files_put_published_immutable(data, Some("text/plain"), false).await.unwrap();
@@ -604,7 +604,7 @@ impl Safe {
     /// ```
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let data = b"Something super good";
     ///     let xorurl = safe.files_put_published_immutable(data, None, false).await.unwrap();

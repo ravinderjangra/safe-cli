@@ -128,7 +128,7 @@ impl Safe {
     /// # use rand::{thread_rng, Rng};
     /// # use safe_api::Safe;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let rand_string: String = thread_rng().sample_iter(&Alphanumeric).take(15).collect();
     ///     let file_xorurl = safe.files_put_published_immutable(&vec![], None, false).await.unwrap();
@@ -241,7 +241,7 @@ impl Safe {
     /// # use rand::distributions::Alphanumeric;
     /// # use rand::{thread_rng, Rng};
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let rand_string: String = thread_rng().sample_iter(&Alphanumeric).take(15).collect();
     ///     let file_xorurl = safe.files_put_published_immutable(&vec![], Some("text/plain"), false).await.unwrap();

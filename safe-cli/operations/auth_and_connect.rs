@@ -91,11 +91,11 @@ pub fn connect(safe: &mut Safe) -> Result<(), String> {
         info!("No credentials found for CLI, connecting with read-only access...");
     }
 
-    safe.connect(APP_ID, auth_credentials.as_deref())
+    safe.connect(APP_ID, auth_credentials.as_deref(), None)
         .or_else(|err| {
             if auth_credentials.is_some() {
                 warn!("Credentials found for CLI are invalid, connecting with read-only access...");
-                safe.connect(APP_ID, None)
+                safe.connect(APP_ID, None, None)
             } else {
                 Err(err)
             }

@@ -266,7 +266,7 @@ impl Safe {
     /// ```
     /// # use safe_api::Safe;
     /// let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let wallet_xorurl = safe.wallet_create().await.unwrap();
     ///     let wallet_xorurl2 = safe.wallet_create().await.unwrap();
@@ -1318,7 +1318,7 @@ mod tests {
         .await?;
 
         let mut another_safe = Safe::default();
-        another_safe.connect("", Some("another-fake-credentials"))?;
+        another_safe.connect("", Some("another-fake-credentials"), Some(|| ()))?;
         let (key_xorurl, _key_pair) = another_safe.keys_create_preload_test_coins("100.5").await?;
 
         // test fail to transfer from a not owned wallet in <from> argument

@@ -28,7 +28,7 @@ pub fn clear_credentials() -> Result<(), String> {
 pub fn connect(safe: &mut Safe) -> Result<(), String> {
     debug!("Fake-auth is enabled so we don't try to read the credentials file");
 
-    safe.connect(APP_ID, Some("fake-auth-credentials"))
+    safe.connect(APP_ID, Some("fake-auth-credentials"), Some(|| ()))
         .map_err(|err| {
             format!(
                 "Unexpected error when trying to connect with fake auth/network: {}",

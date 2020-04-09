@@ -83,7 +83,7 @@ impl Safe {
     /// # use safe_api::{Safe, fetch::SafeData};
     /// # use std::collections::BTreeMap;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _, _) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///
@@ -121,7 +121,7 @@ impl Safe {
     /// # use safe_api::{Safe, fetch::SafeData};
     /// # use std::collections::BTreeMap;
     /// # let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (xorurl, _, _) = safe.files_container_create(Some("../testdata/"), None, true, false).await.unwrap();
     ///

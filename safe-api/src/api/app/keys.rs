@@ -180,7 +180,7 @@ impl Safe {
     /// ```
     /// # use safe_api::Safe;
     /// let mut safe = Safe::default();
-    /// # safe.connect("", Some("fake-credentials")).unwrap();
+    /// # safe.connect("", Some("fake-credentials", Some(||()) ).unwrap();
     /// # async_std::task::block_on(async {
     ///     let (key1_xorurl, key_pair1) = safe.keys_create_preload_test_coins("14").await.unwrap();
     ///     let (key2_xorurl, key_pair2) = safe.keys_create_preload_test_coins("1").await.unwrap();
