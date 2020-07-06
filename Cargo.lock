@@ -272,11 +272,10 @@ checksum = "e223af0dc48c96d4f8342ec01a4974f139df863896b316681efd36742f22cc67"
 
 [[package]]
 name = "bincode"
-version = "1.1.4"
+version = "1.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f04a5e50dc80b3d5d35320889053637d15011aed5e66b66b37ae798c65da6f7"
+checksum = "f30d3a39baa26f9651f17b375061f3233dde33424a8b72b0dbe93a68a0bc896d"
 dependencies = [
- "autocfg 0.1.7",
  "byteorder",
  "serde",
 ]
@@ -871,15 +870,15 @@ dependencies = [
 
 [[package]]
 name = "curve25519-dalek"
-version = "1.2.3"
+version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b7dcd30ba50cdf88b55b033456138b7c0ac4afdc436d82e1b79f370f24cc66d"
+checksum = "5d85653f070353a16313d0046f173f70d1aadd5b42600a14de626f0dfb3473a5"
 dependencies = [
  "byteorder",
- "clear_on_drop",
  "digest",
- "rand_core 0.3.1",
+ "rand_core 0.5.1",
  "subtle 2.2.3",
+ "zeroize 1.1.0",
 ]
 
 [[package]]
@@ -991,15 +990,15 @@ dependencies = [
 
 [[package]]
 name = "ed25519-dalek"
-version = "0.9.1"
+version = "1.0.0-pre.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d07e8b8a8386c3b89a7a4b329fdfa4cb545de2545e9e2ebbc3dd3929253e426"
+checksum = "978710b352437433c97b2bff193f2fb1dfd58a093f863dd95e225a19baa599a2"
 dependencies = [
  "clear_on_drop",
  "curve25519-dalek",
- "failure",
- "rand 0.6.5",
+ "rand 0.7.3",
  "serde",
+ "sha2",
 ]
 
 [[package]]
@@ -1083,27 +1082,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "errno"
-version = "0.2.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b480f641ccf0faf324e20c1d3e53d81b7484c698b42ea677f6907ae4db195371"
-dependencies = [
- "errno-dragonfly",
- "libc",
- "winapi 0.3.8",
-]
-
-[[package]]
-name = "errno-dragonfly"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14ca354e36190500e1e1fb267c647932382b54053c50b14970856c0b00a35067"
-dependencies = [
- "gcc",
- "libc",
-]
-
-[[package]]
 name = "error-chain"
 version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1171,6 +1149,31 @@ name = "fastrand"
 version = "1.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a64b0126b293b050395b37b10489951590ed024c03d7df4f249d219c8ded7cbf"
+
+[[package]]
+name = "ff"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c4b967a3ee6ae993f0094174257d404a5818f58be79d67a1aea1ec8996d28906"
+dependencies = [
+ "byteorder",
+ "ff_derive",
+ "rand_core 0.5.1",
+]
+
+[[package]]
+name = "ff_derive"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3776aaf60a45037a9c3cabdd8542b38693acaa3e241ff957181b72579d29feb"
+dependencies = [
+ "num-bigint",
+ "num-integer",
+ "num-traits",
+ "proc-macro2 1.0.18",
+ "quote 1.0.7",
+ "syn 1.0.33",
+]
 
 [[package]]
 name = "ffi_utils"
@@ -1405,12 +1408,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gcc"
-version = "0.3.55"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f5f3913fa0bfe7ee1fd8248b6b9f42a5af4b9d65ec2dd2c3c26132b950ecfc2"
-
-[[package]]
 name = "generator"
 version = "0.6.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1463,6 +1460,17 @@ name = "glob"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
+
+[[package]]
+name = "group"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f15be54742789e36f03307c8fdf0621201e1345e94f1387282024178b5e9ec8c"
+dependencies = [
+ "ff",
+ "rand 0.7.3",
+ "rand_xorshift 0.2.0",
+]
 
 [[package]]
 name = "h2"
@@ -1998,12 +2006,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "mach_o_sys"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e854583a83f20cf329bb9283366335387f7db59d640d1412167e05fedb98826"
-
-[[package]]
 name = "matches"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2038,18 +2040,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4fc2c02a7e374099d4ee95a193111f72d2110197fe200272371758f6c3643d8"
 dependencies = [
  "autocfg 1.0.0",
-]
-
-[[package]]
-name = "memsec"
-version = "0.5.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0cb9280f8c37546661083aa45eb0318d8469253d31e87649faed25522428398e"
-dependencies = [
- "getrandom",
- "libc",
- "mach_o_sys",
- "winapi 0.3.8",
 ]
 
 [[package]]
@@ -2137,7 +2127,7 @@ dependencies = [
  "pmac",
  "stream-cipher",
  "subtle 2.2.3",
- "zeroize",
+ "zeroize 0.5.2",
 ]
 
 [[package]]
@@ -2345,12 +2335,14 @@ dependencies = [
 
 [[package]]
 name = "pairing"
-version = "0.14.2"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ceda21136251c6d5a422d3d798d8ac22515a6e8d3521bb60c59a8349d36d0d57"
+checksum = "b8290dea210a712682cd65031dc2b34fd132cf2729def3df7ee08f0737ff5ed6"
 dependencies = [
  "byteorder",
- "rand 0.4.6",
+ "ff",
+ "group",
+ "rand_core 0.5.1",
 ]
 
 [[package]]
@@ -2634,9 +2626,9 @@ dependencies = [
 
 [[package]]
 name = "quic-p2p"
-version = "0.6.2"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e9a3d2dc326b4094f599118fdaa8565bd14204b685b91301c47db74c4a41ee7"
+checksum = "ea016023972754185c58c0ce82b51866fc665aac3fa827c0df2477e6845698fc"
 dependencies = [
  "base64 0.10.1",
  "bincode",
@@ -2771,7 +2763,7 @@ dependencies = [
  "rand_jitter",
  "rand_os",
  "rand_pcg",
- "rand_xorshift",
+ "rand_xorshift 0.1.1",
  "winapi 0.3.8",
 ]
 
@@ -2786,25 +2778,6 @@ dependencies = [
  "rand_chacha 0.2.2",
  "rand_core 0.5.1",
  "rand_hc 0.2.0",
-]
-
-[[package]]
-name = "rand04"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58595cc8bb12add45412667f9b422d5a9842d61d36e8607bc7c84ff738bf9263"
-dependencies = [
- "rand 0.4.6",
-]
-
-[[package]]
-name = "rand04_compat"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e4cc0eb4bbb0cbc6c2a8081aa11303b9520369eea474cf865f7b7e3f11b284b"
-dependencies = [
- "rand 0.6.5",
- "rand04",
 ]
 
 [[package]]
@@ -2920,6 +2893,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cbf7e9e623549b0e21f6e97cf8ecf247c1a8fd2e8a992ae265314300b2455d5c"
 dependencies = [
  "rand_core 0.3.1",
+]
+
+[[package]]
+name = "rand_xorshift"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77d416b86801d23dde1aa643023b775c3a462efc0ed96443add11546cdf1dca8"
+dependencies = [
+ "rand_core 0.5.1",
 ]
 
 [[package]]
@@ -3243,8 +3225,8 @@ dependencies = [
  "log 0.4.8",
  "mime_guess",
  "multibase",
- "rand 0.6.5",
- "rand_core 0.4.2",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
  "relative-path",
  "safe-nd",
  "safe_app",
@@ -3253,12 +3235,13 @@ dependencies = [
  "serde",
  "serde_json",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "uhttp_uri",
  "url 2.1.1",
  "urlencoding",
  "walkdir",
+ "xor_name",
 ]
 
 [[package]]
@@ -3312,7 +3295,7 @@ dependencies = [
  "pretty-hex",
  "pretty_assertions",
  "prettytable-rs",
- "rand 0.6.5",
+ "rand 0.7.3",
  "relative-path",
  "reqwest 0.9.24",
  "rpassword",
@@ -3326,10 +3309,11 @@ dependencies = [
  "serde_yaml",
  "shrust",
  "structopt 0.3.15",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
  "walkdir",
+ "xor_name",
 ]
 
 [[package]]
@@ -3338,12 +3322,12 @@ version = "1.0.0"
 dependencies = [
  "duct",
  "multibase",
- "rand 0.6.5",
+ "rand 0.7.3",
  "safe-api",
  "safe-nd",
  "serde",
  "serde_json",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "unwrap",
  "walkdir",
 ]
@@ -3364,25 +3348,26 @@ dependencies = [
  "serde",
  "serde_json",
  "unwrap",
+ "xor_name",
 ]
 
 [[package]]
 name = "safe-nd"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7b9ca69f41d96da8c972538673f07d104691cced39af4d3eab91c1333cb3513"
+source = "git+https://github.com/ravinderjangra/safe-nd.git?branch=remove-xorname#3232f814b94c479260e9c0d1fc99bce75a9967a8"
 dependencies = [
  "bincode",
  "crdts",
  "ed25519-dalek",
  "hex_fmt",
  "multibase",
- "rand 0.6.5",
+ "rand 0.7.3",
  "serde",
  "sha3",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "unwrap",
+ "xor_name",
 ]
 
 [[package]]
@@ -3400,7 +3385,7 @@ dependencies = [
 [[package]]
 name = "safe_app"
 version = "0.16.3"
-source = "git+https://github.com/maidsafe/safe_client_libs#1deaa230e38dd03d9664aaa721475d023cd81134"
+source = "git+https://github.com/ravinderjangra/safe_client_libs?branch=update-xorname#978649aa459281ced1fec6a02a472eec61f57b09"
 dependencies = [
  "async-trait",
  "bincode",
@@ -3410,22 +3395,23 @@ dependencies = [
  "log 0.4.8",
  "lru-cache",
  "miscreant",
- "rand 0.6.5",
+ "rand 0.7.3",
  "safe-nd",
  "safe_core",
  "self_encryption",
  "serde",
  "serde_derive",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
+ "xor_name",
 ]
 
 [[package]]
 name = "safe_authenticator"
 version = "0.16.3"
-source = "git+https://github.com/maidsafe/safe_client_libs#1deaa230e38dd03d9664aaa721475d023cd81134"
+source = "git+https://github.com/ravinderjangra/safe_client_libs?branch=update-xorname#978649aa459281ced1fec6a02a472eec61f57b09"
 dependencies = [
  "async-trait",
  "bincode",
@@ -3435,20 +3421,21 @@ dependencies = [
  "futures-util",
  "log 0.4.8",
  "lru-cache",
- "rand 0.6.5",
+ "rand 0.7.3",
  "safe-nd",
  "safe_core",
  "serde",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
+ "xor_name",
 ]
 
 [[package]]
 name = "safe_authenticator_ffi"
 version = "0.16.3"
-source = "git+https://github.com/maidsafe/safe_client_libs#1deaa230e38dd03d9664aaa721475d023cd81134"
+source = "git+https://github.com/ravinderjangra/safe_client_libs?branch=update-xorname#978649aa459281ced1fec6a02a472eec61f57b09"
 dependencies = [
  "async-trait",
  "bincode",
@@ -3457,15 +3444,16 @@ dependencies = [
  "futures 0.3.5",
  "jni",
  "log 0.4.8",
- "rand 0.6.5",
+ "rand 0.7.3",
  "safe-nd",
  "safe_authenticator",
  "safe_core",
  "serde",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
+ "xor_name",
 ]
 
 [[package]]
@@ -3488,7 +3476,7 @@ dependencies = [
 [[package]]
 name = "safe_core"
 version = "0.41.3"
-source = "git+https://github.com/maidsafe/safe_client_libs#1deaa230e38dd03d9664aaa721475d023cd81134"
+source = "git+https://github.com/ravinderjangra/safe_client_libs?branch=update-xorname#978649aa459281ced1fec6a02a472eec61f57b09"
 dependencies = [
  "async-trait",
  "bincode",
@@ -3510,7 +3498,7 @@ dependencies = [
  "miscreant",
  "pbkdf2",
  "quic-p2p",
- "rand 0.6.5",
+ "rand 0.7.3",
  "regex 1.3.9",
  "safe-nd",
  "self_encryption",
@@ -3519,11 +3507,12 @@ dependencies = [
  "serde_json",
  "sha3",
  "threshold_crypto",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
  "url 2.1.1",
  "ws",
+ "xor_name",
 ]
 
 [[package]]
@@ -3604,9 +3593,9 @@ dependencies = [
 
 [[package]]
 name = "self_encryption"
-version = "0.17.0"
+version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "16c07d372e528948d2d24d31999f8f839be8a828175b2c53478b0117af4ae5cb"
+checksum = "ccbad0610b64c80e4a7f698eade1fcda8e37ebc459766e5e77c69d94fe20e387"
 dependencies = [
  "aes",
  "async-trait",
@@ -3618,7 +3607,7 @@ dependencies = [
  "rand 0.6.5",
  "rand_chacha 0.1.1",
  "serde",
- "tiny-keccak",
+ "tiny-keccak 1.5.0",
  "tokio 0.2.21",
  "unwrap",
 ]
@@ -3741,6 +3730,18 @@ name = "sha-1"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7d94d0bede923b3cea61f3f1ff57ff8cdfd77b400fb8f9998949e0cf04163df"
+dependencies = [
+ "block-buffer",
+ "digest",
+ "fake-simd",
+ "opaque-debug",
+]
+
+[[package]]
+name = "sha2"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a256f46ea78a0c0d9ff00077504903ac881a1dafdc20da66545699e7776b3e69"
 dependencies = [
  "block-buffer",
  "digest",
@@ -4157,21 +4158,20 @@ dependencies = [
 [[package]]
 name = "threshold_crypto"
 version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95be1032c63011f20b01c5edb64930e2b51512782b43b458b1e3449613d70f87"
+source = "git+https://github.com/poanetwork/threshold_crypto.git#8ec1e20fa37eeb9d9f6e989a0c02865d63ce13c7"
 dependencies = [
  "byteorder",
- "errno",
  "failure",
+ "ff",
+ "group",
  "hex_fmt",
  "log 0.4.8",
- "memsec",
  "pairing",
- "rand 0.6.5",
- "rand04_compat",
- "rand_chacha 0.1.1",
+ "rand 0.7.3",
+ "rand_chacha 0.2.2",
  "serde",
- "tiny-keccak",
+ "tiny-keccak 2.0.2",
+ "zeroize 1.1.0",
 ]
 
 [[package]]
@@ -4189,6 +4189,15 @@ name = "tiny-keccak"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d8a021c69bb74a44ccedb824a046447e2c84a01df9e5c20779750acb38e11b2"
+dependencies = [
+ "crunchy",
+]
+
+[[package]]
+name = "tiny-keccak"
+version = "2.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c9d3793400a45f954c52e73d068316d76b6f4e36977e3fcebb13a2721e80237"
 dependencies = [
  "crunchy",
 ]
@@ -4913,6 +4922,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "xor_name"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca9b4049dd2e7b14b0f7bc18d52a759d60c829998862557caf2983c25cddaf7f"
+dependencies = [
+ "log 0.4.8",
+ "rand 0.7.3",
+ "serde",
+]
+
+[[package]]
 name = "yaml-rust"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4941,6 +4961,12 @@ name = "zeroize"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ddfeb6eee2fb3b262ef6e0898a52b7563bb8e0d5955a313b3cf2f808246ea14"
+
+[[package]]
+name = "zeroize"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3cbac2ed2ba24cc90f5e06485ac8c7c1e5449fe8911aef4d8877218af021a5b8"
 
 [[package]]
 name = "zip"

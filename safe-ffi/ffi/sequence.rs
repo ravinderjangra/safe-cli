@@ -12,11 +12,11 @@ use ffi_utils::{
     catch_unwind_cb, vec_clone_from_raw_parts, FfiResult, OpaqueCtx, ReprC, FFI_RESULT_OK,
 };
 use safe_api::Safe;
-use safe_nd::XorName;
 use std::{
     ffi::CString,
     os::raw::{c_char, c_void},
 };
+use xor_name::XorName;
 
 #[no_mangle]
 pub unsafe extern "C" fn create_sequence(
